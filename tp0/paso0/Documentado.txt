@@ -1,0 +1,17 @@
+b-
+Valgrind es una herramienta que sirve para _debuggear_ el manejo de la memoria. 
+Memcheck, la herramienta predeterminada de Valgrind, se encanrga de detectar errores en la memoria tales como el acceso a memoria que no esta reservada, formas incorrectas de liberar la memoria (doble `free`, que no haya ningúno, etc), el uso de valores que no fueron inicializados, y demás.
+Massif sirve para saber cuánta memoria de heap usa un programa. También (aunque no es su configuración default) se le puede pedir información sobre la memoria que se ocupa en stack.
+
+
+c-
+La función `sizeof()` recibe el nombre de un tipo de dato y devuelve el tamaño que este ocupa en bytes. 
+La salida de `sizeof(char)` y `sizeof(int)` siempre sera 1 y 4 respectivamente. La memoria que se necesita para almacenar un char es 1 bytes, mientras que la memoria que se requiere para almacenar un int es 4 bytes
+
+d- ¿El ​ sizeof()​ de una struct de C es igual a la suma del s
+izeof() ​ de cada uno sus elementos?
+No necesariamente. Si bien podría llegar a pasar es muy fácil encontrar algún caso donde, a causa del padding, no se cumpla esta relación.
+    - compile y ejecute size.c
+    - la salida lo demuestra
+
+c- 
