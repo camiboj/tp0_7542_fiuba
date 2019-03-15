@@ -33,9 +33,11 @@ luego de compilar y ejecutar el código de arriba la salida fue la siguiente
 
 <<<<<<<<<<   insertar imagen   >>>>>>>>>>>>
 
-c- El STDIN (entrada estándar) es un archivo que se usa para recibir durante la ejecución de un proceso datos que van apareciendo con el tiempo  y no están estáticos en un archivo. Análogo a esto es el uso del STDOUT (salida estandar) que en lugar de recibir un flujo de datos los emite. STDOUT, generalmente, tiene un búfer asociado para hacerlo más rápido, pero si el programa termina por un error y el búfer no se vacía, entonces se pierde la información. En cambio, STDERR generalmente no tiene un búfer asociado, entonces tenemos la seguridad de que los mensajes se envían siempre y sin retrasos. Finalmente a los archivos STDIN, STDOUT Y STDERR se los suele asociar respectivamente a los números 0, 1 y 2.
+c- El STDIN (entrada estándar) es un archivo que se usa para recibir durante la ejecución de un proceso datos que van apareciendo con el tiempo  y no están estáticos en un archivo. Análogo a esto es el uso del STDOUT (salida estandar) que en lugar de recibir un flujo de datos los emite. Por último, todo proceso tiene un tercer archivo, STDERR, que es destinado a emitir los errores en tiempo de ejecución.
 
+"STDOUT, generalmente, tiene un búfer asociado para hacerlo más rápido, pero si el programa termina por un error y el búfer no se vacía, entonces se pierde la información. En cambio, STDERR generalmente no tiene un búfer asociado, entonces tenemos la seguridad de que los mensajes se envían siempre y sin retrasos." Apuntes de la cátedra. 75.41, segundo cuatrimestre 2018, curso Buchwald, FIUBA.
 
+Finalmente a los archivos STDIN, STDOUT Y STDERR se los suele asociar respectivamente a los números 0, 1 y 2.
 
 Al escribir `./mi_programa > archivo` en la consola se esta redirigiendo el STDOUT del programa. ES decir, la instrucción que se está dando sería "ejecuta el programa `./mi_programa` usando como salida estandar el archivo `arcchivo`". Se obtiene exactamente el mismo resultado al ejecutar el comando `./mi_programa 1 > archivo` ya que en el caso anterior el `1` estaba implicito. En cambio, si la sitaxis es `./mi_programa 2 > archivo` entonces se redirecciona el archivo 2, el STDERR pasa a ser el archivo `archivo`. Para redireccionar el archivo de entrada lo más común es ejecutar `./mi_programa < archivo`. Existen multiples formas de conbinar estas sintaxis y redirigir más de un archivo a la vez.
 
