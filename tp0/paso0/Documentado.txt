@@ -1,17 +1,47 @@
 b-
 Valgrind es una herramienta que sirve para _debuggear_ el manejo de la memoria. 
-Memcheck, la herramienta predeterminada de Valgrind, se encanrga de detectar errores en la memoria tales como el acceso a memoria que no esta reservada, formas incorrectas de liberar la memoria (doble `free`, que no haya ningúno, etc), el uso de valores que no fueron inicializados, y demás.
+Memcheck, la herramienta predeterminada de Valgrind, se encanrga de detectar errores en la memoria tales como el acceso a memoria que no está reservada, formas incorrectas de liberar la memoria (doble `free`, que no haya ningúno, etc), el uso de valores que no fueron inicializados, y demás.
 Massif sirve para saber cuánta memoria de heap usa un programa. También (aunque no es su configuración default) se le puede pedir información sobre la memoria que se ocupa en stack.
 
 
 c-
 La función `sizeof()` recibe el nombre de un tipo de dato y devuelve el tamaño que este ocupa en bytes. 
-La salida de `sizeof(char)` y `sizeof(int)` siempre sera 1 y 4 respectivamente. La memoria que se necesita para almacenar un char es 1 bytes, mientras que la memoria que se requiere para almacenar un int es 4 bytes
+La salida de `sizeof(char)` y `sizeof(int)` siempre sera 1 y 4 respectivamente. La memoria que se necesita para almacenar un char es 1 byte, mientras que la memoria que se requiere para almacenar un int es 4 bytes.
 
-d- ¿El ​ sizeof()​ de una struct de C es igual a la suma del s
-izeof() ​ de cada uno sus elementos?
-No necesariamente. Si bien podría llegar a pasar es muy fácil encontrar algún caso donde, a causa del padding, no se cumpla esta relación.
-    - compile y ejecute size.c
-    - la salida lo demuestra
+d- ¿El ​ sizeof()​ de una struct de C es igual a la suma del sizeof() ​ de cada uno sus elementos?
+No necesariamente. Si bien podría llegar a pasar es muy fácil encontrar algún caso donde, a causa del padding, no se cumpla esta relación. 
+A continuación presento un ejemplo donde se define una struct en C, se imprime su sizeof() y la suma de los sizeof() de cada uno de sus elementos.
 
-c- 
+```
+#include <stdio.h>
+
+struct alumno {
+    char c;
+    int i;
+}typedef alumno_t;
+
+int main(void) {
+    int suma = sizeof(char) + sizeof(int);
+    int real = sizeof(alumno_t);
+    printf("sizeof()​ de una struct de C es %d \n", real);
+    printf("la suma del sizeof() ​ de cada uno sus elementos es %d \n", suma);
+    return 0;
+}    
+```
+luego de compilar y ejecutar el código de arriba la salida fue la siguiente
+
+
+<<<<<<<<<<   insertar imagen   >>>>>>>>>>>>
+
+c- El STDIN (entrada estándar) es un archivo que se usa para recibir durante la ejecución de un proceso datos que van apareciendo con el tiempo  y no están estáticos en un archivo. Análogo a esto es el uso del STDOUT (salida estandar) que en lugar de recibir un flujo de datos los emite. STDOUT, generalmente, tiene un búfer asociado para hacerlo más rápido, pero si el programa termina por un error y el búfer no se vacía, entonces se pierde la información. En cambio, STDERR generalmente no tiene un búfer asociado, entonces tenemos la seguridad de que los mensajes se envían siempre y sin retrasos. Finalmente a los archivos STDIN, STDOUT Y STDERR se los suele asociar respectivamente a los números 0, 1 y 2.
+
+
+
+Al escribir `./mi_programa > archivo` en la consola se esta redirigiendo el STDOUT del programa. ES decir, la instrucción que se está dando sería "ejecuta el programa `./mi_programa` usando como salida estandar el archivo `arcchivo`". Se obtiene exactamente el mismo resultado al ejecutar el comando `./mi_programa 1 > archivo` ya que en el caso anterior el `1` estaba implicito. En cambio, si la sitaxis es `./mi_programa 2 > archivo` entonces se redirecciona el archivo 2, el STDERR pasa a ser el archivo `archivo`. Para redireccionar el archivo de entrada lo más común es ejecutar `./mi_programa < archivo`. Existen multiples formas de conbinar estas sintaxis y redirigir más de un archivo a la vez.
+
+Por otro lado, se puede también redirigir la entrada estndar de un programa hacia la salida de otro. Es decir, el mismo archivo que un programa usa para escribir un stream de datos un segundo archivo lo utiliza para ir leyendolo. La forma de hacerlo por consola es "pipeando. Por ejemplo `echo “hola cómo estas” | ./mi-programa` el programa `echo` va a escribir en un archivo de salida estandar "hola mundo" y ese mismo archivo va a ser el de lectura estandar del programa `mi_programa`.
+
+
+
+
+
