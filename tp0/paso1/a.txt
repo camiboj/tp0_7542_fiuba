@@ -1,0 +1,47 @@
+`Missing space before ( in while(  [whitespace/parens]`
+Debería haber un espacio en blanco entre la declaración del `while` y la el primer parentecis que encierra la expresión lógica.
+
+
+`Mismatching spaces inside () in if  [whitespace/parens]`
+
+La cantidad de espacios en blanco existentes entre la apretura de parentencis y la primer letra debería ser igual a la cantidad de espacios en blanco existentes entre la última letra dentro del parentecis y el parentecis de cierre. Esteticamente esto significa que la expresión lógica debe estar centrada con respecto a los parentesis que la encierran.
+
+
+`Should have zero or one spaces inside ( and ) in if  [whitespace/parens]`
+
+Laa cantidades de espacios blancos mencionados en el error anterior deben ser 0 o 1 únicamente.
+
+
+`An else should appear on the same line as the preceding }  [whitespace/newline]`
+
+Los `else` deben posicionarse en la misma linea que la llave que cierra el `if` al que hacen referencia.
+
+
+`If an else has a brace on one side, it should have it on both  [readability/braces]`
+
+Si un `else` está precedido por una llave, entonces debería existir un otra que la sucede. Lo mismo se da en caso contrario: Si un `else` está sucedido por una llave, entonces debería existir un otra que la antecede.
+
+
+`Missing space before ( in if(  [whitespace/parens]`
+
+Este error es análogo al primero con la salvedad de que se trata de un `if` en lugar de un `while`.
+
+
+`Extra space before last semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon]`
+
+Hay un espacio en blanco extra entre el el último caracter de la sentencia (final real de la sentencia) y el punto y coma que delimita el fin de la sentecia.
+
+
+`Almost always, snprintf is better than strcpy  [runtime/printf]`
+
+El error nos está indicando que casi siempre es mejor utilizar la función `snprintf` que `strcopy`.
+A veces nos encontramos con varias funciones de la libreria estandar que asimilan el comprtamiento que buscamos. En estas ocaciones es una buena práctica optar por la función que menos posibilidad de emitir en un error tenga.
+En este caso en particular `snprintf` maneja un parámetro para especificar la cantidad de bytes (caracteres) se desean copiar. Por lo tanto es factible que tenga menos probabilidad de caer en overflow.
+
+
+`Lines should be <= 80 characters long  [whitespace/line_length]`
+El standar dice que todas las lineas deben ser menores a 80 caracteres. Esto surge de motivos "antiguos" y tal vez obsoletos. No obstante facilita la lectura de cualquier código.
+
+
+
+

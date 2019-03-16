@@ -1,0 +1,19 @@
+b-
+
+`unknown type name 'wordscounter_t'`
+
+En la función `main` se declara una variable de tipo `wordscounter_t`. El error se genera porque la estructa `wordscounter_t` no está definida, por lo tanto el compilador no la conoce y no sabe cuánta memoria reservar.
+
+`implicit declaration of function 'wordscounter_create'`
+`implicit declaration of function 'wordscounter_process'`
+`implicit declaration of function 'wordscounter_get_words'`
+
+En este caso los errores nos comunican que se llamo a las respectivas funciones pero nunca fueron declaradas previamente. Es decir, el compilador no sabe qué tipo de datos ni cuantos reciben cada una y que tipo de datos devuelven.
+
+Ambos casos son errores de compilación ya que es el compilador quién carece de la información suficiente para hacer su tarea.
+
+c- 
+
+Los warning se generan cuando hay código que puede llegar a generar error luego de la compilación. Por lo tanto si el código no puede ser compilado los warning no se pueden identificar.
+
+
