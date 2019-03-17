@@ -1,0 +1,13 @@
+a-
+
+El cambio principal fue la inclusión de librerias estanrd. En el archivo `paso3_wordscounter.c` se incluyó la libreria mencionada en los errores del paso anterior (`paso3_wordscounter.c`). Y en el codigo de `paso3_wordscounter.h` se incluyeron las librerías `string.h` y `stdio.h`.
+Además, se hicieron los cambios pertinentes en el codigo a causa de la alteración de los nombres de los archivos.
+
+b-
+
+```
+paso3_main.o: In function `main':
+/home/sercom_backend/build/paso3_main.c:27: undefined reference to `wordscounter_destroy'
+
+```
+El error citado nos informa que la funcion `wordscounter_destroy` no está definida. Este es un error del linker, el compilador conoce la declaración de la función y puede compilar pero el linker desconoce cómo proceder cuando se llama a esta función.

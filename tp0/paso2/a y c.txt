@@ -1,0 +1,36 @@
+a-
+
+Las correcciones que se hicieron fueron mayoritariamente de estilo, especificamente las mencionadas en los errores de la entrega del `paso1.zip`. No obstante, se incluyó en el `main.c` el archivo `wordscounter.h` que contiene la declaración de la estructura y las funciones que el compilador "reclamaba" en el paso anterior.
+
+c-
+
+`unknown type name 'size_t'`
+`unknown type name 'FILE'`
+
+Como se explicó en el paso2 respuesta c) este es un error de compilación. El código hace referencia a un tipo de datos que no está declarado.
+
+
+```
+paso2_wordscounter.c:17:8: error: conflicting types for 'wordscounter_get_words'
+ size_t wordscounter_get_words(wordscounter_t *self) {
+        ^
+In file included from paso2_wordscounter.c:1:0:
+paso2_wordscounter.h:20:8: note: x
+ size_t wordscounter_get_words(wordscounter_t *self);
+        ^
+```
+Este error se deriva del anterior. Al no conocer el tipo de datos `size_t` es probable que el compilador haya generado una declaración default de la función que devuelva un entero. Pero, al llegar a la linea donde la función está definida se encuentra con una declaración no concuerda con la anterior.
+
+
+
+```
+paso2_wordscounter.c: In function 'wordscounter_next_state':
+paso2_wordscounter.c:30:25: error: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+     char* delim_words = malloc(7 * sizeof(char));
+                         ^
+paso2_wordscounter.c:30:25: error: incompatible implicit declaration of built-in function 'malloc' [-Werror]
+paso2_wordscounter.c:30:25: note: include '<stdlib.h>' or provide a declaration of 'malloc'
+```
+Por último, este error se conecta levemente a los anteriores. La función `malloc` se encuentra definida en la misma librería estandar que la estructura `size_t`. Esta librería no está incluida y el compilador no conoce la declaración de la función.
+
+En todos los casos estamos tratando con errores de compilación donde al compilador carece de información.
