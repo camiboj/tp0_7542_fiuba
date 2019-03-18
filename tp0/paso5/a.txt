@@ -1,0 +1,8 @@
+a- 
+
+El programa ya no reserva memoria en el main para guardar los parámetros pasados por linea de comando. Tampoco sigue reservando memoria para la cadena de simbolos delimitadores de palabras.
+También se agrega un bloque en el main para cerrar archivo en caso de que se haya pasado el parámetro con el nombre del mismo.
+
+b-
+
+

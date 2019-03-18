@@ -1,0 +1,52 @@
+a-
+
+Por un lado, al igual que en el `diff` del paso 2 con el 3, se hicieron los reformas necesarias para incluir los archivos con el nombres cambiado.
+Además, se agrego una definición de la función que impedía el linkeo del programa. Si bien la función carece de sentencias y no tiene ninguna utilidad permite al linker referenciarla y así solucionar el error que se generaba en el paso 3.
+
+
+b- TDA_VALGRIND
+
+`==00:00:00:00.554 7193== Open file descriptor 2: input_tda.txt`
+```
+==00:00:00:00.554 7193== 344 bytes in 1 blocks are still reachable in loss record 1 of 2
+==00:00:00:00.554 7193==    at 0x402D17C: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==00:00:00:00.554 7193==    by 0x409C279: __fopen_internal (iofopen.c:69)
+==00:00:00:00.554 7193==    by 0x409C33D: fopen@@GLIBC_2.1 (iofopen.c:97)
+==00:00:00:00.554 7193==    by 0x8048517: main (paso4_main.c:14)
+```
+
+Estas lineas de error nos muestran que el `main` en la linea 14 hace un llamado a `fopen` pero nunca cierra el archivo. Nos explica que el archivo `input_tda.txt` aún sigue abierto al terminar la ejecución. Y que esta "leak memory" es "still reachable" lo cual significa que no se perdió el puntero a la misma y aún puede liberarse el espacio en memoria allocado.
+
+
+```
+==00:00:00:00.554 7193== 1,505 bytes in 215 blocks are definitely lost in loss record 2 of 2
+==00:00:00:00.554 7193==    at 0x402D17C: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==00:00:00:00.554 7193==    by 0x8048685: wordscounter_next_state (paso4_wordscounter.c:35)
+==00:00:00:00.554 7193==    by 0x8048755: wordscounter_process (paso4_wordscounter.c:30)
+==00:00:00:00.554 7193==    by 0x8048535: main (paso4_main.c:24)
+```
+
+Podemos notar por la decripción del error que se deriva del de un llamado del `main` a `wordscounter_proces` y de este último a `wordscounter_next_state`. Más especificamente en la liena 35 del archivo `paso4_wordscounter.c`. Si vamos a la linea previamente mencionada notamos que se pide memoria para un sting. Esta porción de memoria no es liberada al terminar la ejecución.
+La especificaion `definitely lost` nos indica que el programa además perdió el puntero a esa porción de memoria.
+
+
+c- LongFilename_Valgrind
+
+Las salida de valgrind nos reporta un único error, el acceso de memoria que no está reservada para el buffer que se trata de escribir. 
+Si vamos a la linea que genera el overflow podemos notar que se usa la función `memcpy` para copiar al buffer `filepath` el contenido del buffer `argv[1]`. El problema es que se le indica que copie todos los caracteres del segundo buffer sin tener en cuenta que el primero no cuenta con tanto espacio.
+
+
+d-
+
+`strncpy` recibe un parametro entero n un buffer de entrada y uno de salida.La función  copia hasta n caracteres del buffer de entrada al de salida. En el caso de que la longitud del buffer de entrada sea mayor que a n transcribe tantos bytes como entran en el buffer de salida sin reservar un último para guardar un caraacter nulo. Por esto último a la hora de operar con el string de salida se accedería a memoria invalida y se generaria un segmentation fault.
+
+
+e- 
+
+El segmentation fault se genera cuando un programa intenta ingresar a una porción de memoria a la que no tiene autorización. O intenta acceder a memoria de la manera en que no tiene permitido, por ejemplo tratando de escribir segmentos de "sólo lectura".
+
+Los programas habitualmente reservan una porción de memoria (buffer) para ser escrita. El buffer overflow se da cuando un programa se excede de la capacidad del buffer al punto de sobreescribir datos en la memoria adyacente.
+
+
+
+
